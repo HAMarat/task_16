@@ -11,7 +11,7 @@ class User(db.Model):
     role = db.Column(db.String)
     phone = db.Column(db.String)
 
-    def get_user(self):
+    def get_dict_user(self):
         return {
             'id': self.id,
             'first_name': self.first_name,
@@ -29,7 +29,7 @@ class Offer(db.Model):
     order_id = db.Column(db.Integer, db.ForeignKey('order.id'))
     executor_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
-    def get_offer(self):
+    def get_dict_offer(self):
         return {
             'id': self.id,
             'order_id': self.order_id,
@@ -49,7 +49,7 @@ class Order(db.Model):
     customer_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     executor_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
-    def get_order(self):
+    def get_dict_order(self):
         return {
             'id': self.id,
             'name': self.name,
