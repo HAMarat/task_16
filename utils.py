@@ -3,13 +3,19 @@ from config import db, app
 from models import User, Offer, Order
 
 
-def get_json_data(link):
+def get_json_data(link: str) -> list[dict]:
+    """
+    Функция для загрузки данных из json файлов
+    """
     with open(link, 'r', encoding='utf-8') as file:
         data = json.load(file)
         return data
 
 
-def serialize_user(row):
+def serialize_user(row: dict) -> User:
+    """
+    Функция для создания объекта класса User
+    """
     return User(
         id=row.get("id"),
         first_name=row.get("first_name"),
@@ -21,7 +27,10 @@ def serialize_user(row):
     )
 
 
-def serialize_order(row):
+def serialize_order(row: dict) -> Order:
+    """
+    Функция для создания объекта класса Order
+    """
     return Order(
         id=row.get("id"),
         name=row.get("name"),
@@ -35,7 +44,10 @@ def serialize_order(row):
     )
 
 
-def serialize_offer(row):
+def serialize_offer(row: dict) -> Offer:
+    """
+    Функция для создания объекта класса Offer
+    """
     return Offer(
         id=row.get("id"),
         order_id=row.get("order_id"),
@@ -44,6 +56,9 @@ def serialize_offer(row):
 
 
 def add_data_to_user():
+    """
+    Функция для добавления данных в таблицу User
+    """
     for row in get_json_data('data/Users.json'):
         with app.app_context():
             db.session.add(serialize_user(row))
@@ -51,6 +66,9 @@ def add_data_to_user():
 
 
 def add_data_to_order():
+    """
+    Функция для добавления данных в таблицу Order
+    """
     for row in get_json_data('data/Orders.json'):
         with app.app_context():
             db.session.add(serialize_order(row))
@@ -58,6 +76,9 @@ def add_data_to_order():
 
 
 def add_data_to_offer():
+    """
+    Функция для добавления данных в таблицу Offer
+    """
     for row in get_json_data('data/Offers.json'):
         with app.app_context():
             db.session.add(serialize_offer(row))
